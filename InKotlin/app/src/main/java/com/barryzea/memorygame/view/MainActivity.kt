@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
            bind.lnContent.addView(it)
         }
         viewModel.onCardClicked.observe(this){
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "${it.coordinates} : ${it.description}" , Toast.LENGTH_SHORT).show()
         }
     }
 

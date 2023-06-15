@@ -7,9 +7,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.barryzea.memorygame.R
+import com.barryzea.memorygame.common.DummyDataSource
 import com.barryzea.memorygame.common.SingleMutableLiveData
 import com.barryzea.memorygame.common.createCardView
 import com.barryzea.memorygame.common.createLinearLayout
+import com.barryzea.memorygame.common.entities.Card
 
 /**
  * Project MemoryGame
@@ -22,16 +24,18 @@ class MainViewModel: ViewModel() {
 
     private var _viewCreated:SingleMutableLiveData<LinearLayout> = SingleMutableLiveData()
     val viewCreated:SingleMutableLiveData<LinearLayout> = _viewCreated
-    private var _onCardClicked:SingleMutableLiveData<String> = SingleMutableLiveData()
-    val onCardClicked:SingleMutableLiveData<String> = _onCardClicked
+    private var _onCardClicked:SingleMutableLiveData<Card> = SingleMutableLiveData()
+    val onCardClicked:SingleMutableLiveData<Card> = _onCardClicked
 
     fun setUpGameBoard(ctx:Context, rows:Int,columns:Int){
         //X is row and Y is column
+        val randomList=DummyDataSource.getRandomList(rows*columns)
         for(x in 0 until rows){
             val lnRow= createLinearLayout(ctx)
             for(y in 0  until columns){
-                val cardView= createCardView(ctx, R.drawable.ic_launcher_background){_onCardClicked.value=it }
-                cardView.tag=String.format("%s,%s",x,y)
+                val imageEntity=randomList.random()
+                val coordinatesTag=String.format("%s,%s",x,y)
+                val cardView= createCardView(ctx,coordinatesTag,imageEntity){ _onCardClicked.value=it}
                 lnRow.addView(cardView)
             }
             _viewCreated.value=lnRow

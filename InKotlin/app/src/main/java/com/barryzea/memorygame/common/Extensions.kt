@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 import com.barryzea.memorygame.R
+import com.barryzea.memorygame.common.entities.Card
+import com.barryzea.memorygame.common.entities.GameImage
 
 /**
  * Project MemoryGame
@@ -27,31 +29,30 @@ fun createLinearLayout(ctx:Context):LinearLayout{
     lnRow.setPadding(4,4,4,4)
     return lnRow
 }
-fun createCardView(ctx:Context, imageResource: Int, onClick:(String)->Unit):CardView{
+fun createCardView(ctx:Context,tag:String, imageEntity:GameImage, onClick:(Card)->Unit):CardView{
     val cardView= CardView(ctx)
     val cardParams = LinearLayout.LayoutParams(
-        ActionBar.LayoutParams.MATCH_PARENT,
-        ActionBar.LayoutParams.MATCH_PARENT,1.0f)
-
-    val imageView = createImageView(ctx,imageResource)
-    cardParams.setMargins(4,4,4,4,)
-    imageView.scaleType=ImageView.ScaleType.CENTER_CROP
+        ActionBar.LayoutParams.MATCH_PARENT,ctx.resources.getDimensionPixelSize(R.dimen.height),1.0f)
+    val imageView = createImageView(ctx,imageEntity.imageRes)
+    cardParams.setMargins(8,8,8,8)
     cardView.layoutParams=cardParams
     cardView.cardElevation=8F
     cardView.radius= TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, ctx.resources.displayMetrics)
-
+    cardView.contentDescription=imageEntity.name
+    cardView.tag=tag
     cardView.isClickable=true
     cardView.isFocusable=true
-    cardView.setOnClickListener { onClick(cardView.tag.toString()) }
-    imageView.setImageResource(R.drawable.ic_launcher_background)
-
+    cardView.setOnClickListener {
+        onClick(Card(coordinates = cardView.tag.toString(),
+        description = cardView.contentDescription.toString())) }
     cardView.addView(imageView)
     return cardView
 }
 
 fun createImageView(ctx:Context, imageResource:Int):ImageView{
     val imageView = ImageView(ctx)
-    imageView.scaleType=ImageView.ScaleType.CENTER_CROP
+    imageView.scaleType=ImageView.ScaleType.CENTER_INSIDE
+    imageView.setPadding(4,4,4,4)
     imageView.setImageResource(imageResource)
     return imageView
 }
