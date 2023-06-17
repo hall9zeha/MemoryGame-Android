@@ -1,7 +1,9 @@
 package com.barryzea.memorygame.common
 
 import android.app.ActionBar
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.util.TypedValue
 import android.view.Gravity
 import android.widget.ImageView
@@ -56,3 +58,9 @@ fun createImageView(ctx:Context, imageResource:Int):ImageView{
     imageView.setImageResource(imageResource)
     return imageView
 }
+
+inline fun <reified T:Activity> Context.gotoActivity(body:Intent.()->Unit){
+    startActivity(intentFor<T>(body))
+}
+inline fun <reified T:Activity> Context.intentFor(body: Intent.()->Unit):Intent=
+    Intent(this,T::class.java).apply(body)

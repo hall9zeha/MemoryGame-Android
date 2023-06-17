@@ -1,12 +1,8 @@
 package com.barryzea.memorygame.viewModel
 
 import android.content.Context
-import android.util.Log
 import android.widget.LinearLayout
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.barryzea.memorygame.R
 import com.barryzea.memorygame.common.DummyDataSource
 import com.barryzea.memorygame.common.SingleMutableLiveData
 import com.barryzea.memorygame.common.createCardView
@@ -20,7 +16,7 @@ import com.barryzea.memorygame.common.entities.Card
  *
  **/
 
-class MainViewModel: ViewModel() {
+class GameViewModel: ViewModel() {
 
     private var _viewCreated:SingleMutableLiveData<LinearLayout> = SingleMutableLiveData()
     val viewCreated:SingleMutableLiveData<LinearLayout> = _viewCreated

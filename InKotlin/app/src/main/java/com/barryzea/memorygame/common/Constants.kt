@@ -7,4 +7,13 @@ package com.barryzea.memorygame.common
  *
  **/
 object Constants {
+    const val COLUMN_NUM="columns"
+    const val ROW_NUM="rows"
+    const val EASY_COLUMNS=4
+    const val EASY_ROWS=4
+    const val MEDIUM_COLUMNS=4
+    const val MEDIUM_ROWS=6
+    const val HARD_COLUMNS=5
+    const val HARD_ROWS=6
+
 }

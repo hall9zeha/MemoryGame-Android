@@ -4,4 +4,6 @@
     <dimen name="height">80dp</dimen>
     <dimen name="width">60dp</dimen>
     <dimen name="common_padding_micro">4dp</dimen>
+    <dimen name="common_padding_default">16dp</dimen>
+    <dimen name="common_padding_max">24dp</dimen>
 </resources>
