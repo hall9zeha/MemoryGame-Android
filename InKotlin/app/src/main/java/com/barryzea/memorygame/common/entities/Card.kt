@@ -8,4 +8,4 @@ import androidx.cardview.widget.CardView
  * Copyright (c) Barry Zea H. All rights reserved.
  *
  **/
-data class Card(var card:CardView?=null, var status:Boolean=false, var coordinates:String="", var description:String="")
+data class Card(var card:CardView?=null, var status:Boolean=false, var coordinates:Pair<Int,Int> = Pair(0,0), var description:String="")

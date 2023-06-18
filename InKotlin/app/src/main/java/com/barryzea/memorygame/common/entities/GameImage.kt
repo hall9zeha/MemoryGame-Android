@@ -8,4 +8,19 @@ import android.graphics.drawable.Drawable
  * Copyright (c) Barry Zea H. All rights reserved.
  *
  **/
-data class GameImage(var imageRes: Int, var name:String)
+data class GameImage(var id:Int,var imageRes: Int=0, var name:String="") {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as GameImage
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id
+    }
+}

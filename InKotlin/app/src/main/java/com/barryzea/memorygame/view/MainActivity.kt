@@ -1,12 +1,15 @@
 package com.barryzea.memorygame.view
 
 
+import android.animation.AnimatorInflater
+import android.animation.AnimatorSet
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.barryzea.memorygame.R
 import com.barryzea.memorygame.common.Constants
 import com.barryzea.memorygame.common.gotoActivity
 import com.barryzea.memorygame.databinding.ActivityMainBinding
@@ -14,13 +17,14 @@ import com.barryzea.memorygame.viewModel.GameViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bind:ActivityMainBinding
-    private val viewModel:GameViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bind.root)
         setUpListeners()
+
+
     }
    private fun setUpListeners(){
        bind.btnEasy.setOnClickListener { gotoActivity<GameActivity> {
@@ -40,4 +44,5 @@ class MainActivity : AppCompatActivity() {
            }
        }
    }
+
 }

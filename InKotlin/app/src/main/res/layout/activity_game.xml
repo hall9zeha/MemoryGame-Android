@@ -1,26 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.MainActivity"
+    android:orientation="vertical"
     android:padding="@dimen/common_padding_micro"
+    android:weightSum="1"
     >
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.7"
+        android:orientation="vertical"
+        android:id="@+id/lnHeader"
+        android:layout_marginTop="@dimen/common_padding_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvMovements"
+                tools:text="Movimientos 12"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/common_padding_default"
+                android:layout_marginEnd="@dimen/common_padding_default"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvRemainingPairs"
+                tools:text="Pares 4"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/tvMovements"
+                app:layout_constraintEnd_toEndOf="@id/tvMovements"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvTimer"
+                tools:text="45"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/tvRemainingPairs"
+                app:layout_constraintEnd_toEndOf="@id/tvMovements"/>
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/timeProgress"
+                app:trackCornerRadius="16dp"
+                app:trackThickness="@dimen/common_padding_max"
+                android:indeterminate="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/tvTimer"
+                app:layout_constraintTop_toBottomOf="@id/tvTimer"
+                tools:progress="50"
+                android:layout_marginTop="@dimen/common_padding_default"
+                android:layout_marginStart="@dimen/common_padding_min"
+
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:id="@+id/lnContent"
             android:orientation="vertical"
             android:layout_marginTop="16dp"
-            android:layout_gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-    </androidx.core.widget.NestedScrollView>
+            app:layout_constraintTop_toBottomOf="@id/lnHeader"
+            app:layout_constraintBottom_toTopOf="@id/btnBack"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnBack"
+        android:text="@string/choiceLevel"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lnContent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
