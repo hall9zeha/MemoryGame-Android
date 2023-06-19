@@ -61,10 +61,11 @@
                 app:trackCornerRadius="16dp"
                 app:trackThickness="@dimen/common_padding_max"
                 android:indeterminate="false"
+                tools:max="60"
+                tools:progress="60"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/tvTimer"
                 app:layout_constraintTop_toBottomOf="@id/tvTimer"
-                tools:progress="50"
                 android:layout_marginTop="@dimen/common_padding_default"
                 android:layout_marginStart="@dimen/common_padding_min"
 

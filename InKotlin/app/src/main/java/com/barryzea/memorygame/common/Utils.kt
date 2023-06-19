@@ -1,6 +1,5 @@
 package com.barryzea.memorygame.common
 
-import android.app.ActionBar
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -16,9 +15,6 @@ import com.barryzea.memorygame.R
 import com.barryzea.memorygame.common.entities.Card
 import com.barryzea.memorygame.common.entities.GameImage
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.coroutines.delay
-import kotlin.reflect.KClass
-import kotlin.reflect.KType
 
 /**
  * Project MemoryGame
@@ -39,8 +35,6 @@ fun createLinearLayout(ctx:Context):LinearLayout{
 }
 fun createCardView(ctx:Context,tag:String, imageEntity:GameImage, onClick:(Card)->Unit):CardView{
     val cardView= CardView(ctx)
-    /*val cardParams = LinearLayout.LayoutParams(
-        ActionBar.LayoutParams.MATCH_PARENT,ctx.resources.getDimensionPixelSize(R.dimen.height),1.0f)*/
     val cardParams = LinearLayout.LayoutParams(
         LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT,1.0f)
     val imageViewFront= createImageView(ctx,R.drawable.aleph)

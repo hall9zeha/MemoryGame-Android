@@ -43,7 +43,8 @@ class GameActivity : AppCompatActivity() {
     }
     private fun setUpGameBoard(){
         viewModel.setUpAnimators(this)
-        postDelay(500){viewModel.setUpGameBoard(this,ROWS,COLUMNS)}
+        postDelay(500){viewModel.setUpGameBoard(this,ROWS,COLUMNS,1)}
+
     }
     private fun setUpObservers(){
         viewModel.viewCreated.observe(this){
@@ -66,6 +67,14 @@ class GameActivity : AppCompatActivity() {
             setRemainingPairs(findPairs)
             pairs=findPairs
         }
+        viewModel.timerCount.observe(this){time->
+            bind.timeProgress.progress=time
+            bind.tvTimer.text=textFormatted(time,"")
+        }
+        viewModel.maxProgress.observe(this){
+            bind.timeProgress.max=it
+            bind.timeProgress.progress=it
+        }
     }
 
     private fun setMovementsNum(movements:Int){
@@ -78,7 +87,7 @@ class GameActivity : AppCompatActivity() {
         if(listOfMovements.size >1) {
             movements++
             setMovementsNum(movements)
-           postDelay(500){
+           postDelay(300){
                 val x = listOfMovements[0].coordinates.first
                 val y = listOfMovements[0].coordinates.second
                 val x1 = listOfMovements[1].coordinates.first
