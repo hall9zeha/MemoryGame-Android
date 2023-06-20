@@ -5,4 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
         <item name="android:windowTranslucentStatus">true</item>
     </style>
+    <style name="SplashScreenTheme" parent="Base.Theme.MemoryGame" >
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
 </resources>
