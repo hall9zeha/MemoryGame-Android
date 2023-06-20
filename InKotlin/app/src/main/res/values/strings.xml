@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">Memory Game</string>
+    <string name="app_name">Braid Memory Game</string>
     <string name="pairsMsg">Pares</string>
     <string name="movementsMsg">Movimientos</string>
     <string name="accept">Aceptar</string>
-    <string name="winnerMsg">!Has ganado,que buena memoria</string>
+    <string name="winnerMsg">¡Has ganado, que buena memoria</string>
     <string name="choiceLevel">Escoger dificultad</string>
-    <string name="retryGameMsg">"!Ánimo, Vuelve a intentarlo "</string>
+    <string name="retryGameMsg">"¡Ánimo, Vuelve a intentarlo "</string>
     <string name="easyLevel">Fácil</string>
     <string name="mediumLevel">Medio</string>
     <string name="hardLevel">Difícil</string>

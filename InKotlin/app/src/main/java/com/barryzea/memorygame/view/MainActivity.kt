@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bind:ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Base_Theme_MemoryGame)
         super.onCreate(savedInstanceState)
         bind = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bind.root)

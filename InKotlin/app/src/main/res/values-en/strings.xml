@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Memory Game</string>
+    <string name="app_name">Braid Memory Game</string>
     <string name="pairsMsg">Pairs</string>
     <string name="movementsMsg">Movements</string>
     <string name="accept">Accept</string>

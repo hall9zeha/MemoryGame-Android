@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.MainActivity"
+    android:background="?attr/colorSurface"
     android:padding="@dimen/common_padding_micro"
     >
  <com.google.android.material.imageview.ShapeableImageView

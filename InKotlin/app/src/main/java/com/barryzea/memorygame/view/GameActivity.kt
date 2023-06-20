@@ -1,8 +1,10 @@
 package com.barryzea.memorygame.view
 
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -16,6 +18,7 @@ import com.barryzea.memorygame.common.showGameDialog
 import com.barryzea.memorygame.common.textFormatted
 import com.barryzea.memorygame.databinding.ActivityGameBinding
 import com.barryzea.memorygame.viewModel.GameViewModel
+
 
 class GameActivity : AppCompatActivity() {
     private lateinit var bind: ActivityGameBinding
