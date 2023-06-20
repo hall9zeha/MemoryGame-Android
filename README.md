@@ -1,5 +1,5 @@
 # MemoryGame-Android
- Classic memory game for Android with a theme inspired by the video game Braid().
+ Classic memory game for Android with a theme inspired by the video game Braid.
 
 ## Download demo 📂 [click here](https://github.com/hall9zeha/MemoryGame-Android/raw/main/demo/braid_memory_game.apk)
 ## It was used 🔧:
