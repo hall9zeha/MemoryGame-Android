@@ -30,17 +30,20 @@ class MainActivity : AppCompatActivity() {
        bind.btnEasy.setOnClickListener { gotoActivity<GameActivity> {
            putExtra(Constants.COLUMN_NUM,Constants.EASY_COLUMNS)
            putExtra(Constants.ROW_NUM,Constants.EASY_ROWS)
+           putExtra(Constants.LEVEL,Constants.EASY)
        } }
        bind.btnMedium.setOnClickListener {
            gotoActivity<GameActivity> {
                putExtra(Constants.COLUMN_NUM,Constants.MEDIUM_COLUMNS)
                putExtra(Constants.ROW_NUM,Constants.MEDIUM_ROWS)
+               putExtra(Constants.LEVEL,Constants.MEDIUM)
            }
        }
        bind.btnHard.setOnClickListener {
            gotoActivity<GameActivity> {
                putExtra(Constants.COLUMN_NUM,Constants.HARD_COLUMNS)
                putExtra(Constants.ROW_NUM,Constants.HARD_ROWS)
+               putExtra(Constants.LEVEL,Constants.HARD)
            }
        }
    }

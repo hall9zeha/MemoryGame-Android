@@ -3,9 +3,7 @@ package com.barryzea.memorygame.viewModel
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.content.Context
-import android.media.Image
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -17,7 +15,7 @@ import com.barryzea.memorygame.common.SingleMutableLiveData
 import com.barryzea.memorygame.common.createCardView
 import com.barryzea.memorygame.common.createLinearLayout
 import com.barryzea.memorygame.common.entities.Card
-import com.barryzea.memorygame.common.entities.GameImage
+import com.barryzea.memorygame.common.entities.ImageGame
 import com.barryzea.memorygame.common.getCoordinates
 
 /**
@@ -48,16 +46,17 @@ class GameViewModel : ViewModel() {
 
     fun setUpGameBoard(ctx:Context, rows:Int,columns:Int, minutes:Int){
         //X is row and Y is column
+        setUpAnimators(ctx)
         imagesArray= Array(rows){Array(columns){Card() }}
         val randomList = DummyDataSource.getRandomList(rows*columns)
-        val listForCuntPairs= mutableListOf<GameImage>()
+        val listForCuntPairs= mutableListOf<ImageGame>()
         for(x in 0 until rows){
             val lnRow= createLinearLayout(ctx)
             for(y in 0  until columns){
-                val imageEntity=randomList.random()
-                listForCuntPairs.add(imageEntity)//agregamos cada imagen a la lista para contar cuantos pares hay
+                val imageRandom=randomList.random()
+                listForCuntPairs.add(imageRandom)//agregamos cada imagen a la lista para contar cuantos pares hay
                 val coordinatesTag=String.format("%s,%s",x,y)
-                val cardView= createCardView(ctx,coordinatesTag,imageEntity){ _onCardClicked.value=it}
+                val cardView= createCardView(ctx,coordinatesTag,imageRandom){ _onCardClicked.value=it}
                 lnRow.addView(cardView)
                 imagesArray[x][y]= Card(coordinates = getCoordinates(coordinatesTag),
                     description = cardView.contentDescription.toString())
@@ -67,8 +66,8 @@ class GameViewModel : ViewModel() {
         countPairsOfImages(listForCuntPairs)//llamamos a la función que contará los pares de imágenes
         setUpTimer(minutes)
     }
-    private fun countPairsOfImages(imagesList:List<GameImage>){
-        var listOfSearch= mutableListOf<GameImage>()
+    private fun countPairsOfImages(imagesList:List<ImageGame>){
+        var listOfSearch= mutableListOf<ImageGame>()
         listOfSearch.addAll(imagesList)
         var count=0
         //Ya que iremos eliminando los pares de imágenes, la lista se irá reduciendo, entonces mientras
@@ -79,7 +78,7 @@ class GameViewModel : ViewModel() {
             for(j in 1 until size){
                 if(image.name==listOfSearch[j].name){
                     //Si encontramos una imagen con el mismo nombre eliminamos la imagen
-                    //del por el índice en el que se encuentra así como la principal usada para comparar
+                    //por el índice en el que se encuentra así como la principal del índice 0 usada para comparar
                     listOfSearch.removeAt(j)
                     listOfSearch.removeAt(0)
                     count++
@@ -92,11 +91,9 @@ class GameViewModel : ViewModel() {
             }
         }
         _countPairs.value=count
-
-
     }
     private fun setUpTimer(minutes:Int){
-        val timeInMillis=((minutes * 60 * 1000)).toLong()
+        val timeInMillis=((minutes * 60 * 1000)+1000).toLong()
         val maxProgressForProgressBar = (timeInMillis/1000).toInt()
         _maxProgress.value=maxProgressForProgressBar
         timer = object: CountDownTimer(timeInMillis, 1000){
@@ -104,15 +101,13 @@ class GameViewModel : ViewModel() {
                val progressPercent = millis/1000
                 _timerCount.postValue(progressPercent.toInt())
             }
-            override fun onFinish() {
-                _timerCount.postValue(0)
-            }
+            override fun onFinish() {}
         }
         timer?.start()
     }
     fun stopTimer(){timer?.cancel()}
 
-    fun setUpAnimators(ctx:Context){
+    private fun setUpAnimators(ctx:Context){
         frontAnimator = AnimatorInflater.loadAnimator(ctx, R.animator.front_animator) as AnimatorSet
         backAnimator = AnimatorInflater.loadAnimator(ctx, R.animator.back_animator) as AnimatorSet
     }

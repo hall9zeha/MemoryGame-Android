@@ -10,10 +10,14 @@ import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.barryzea.memorygame.R
 import com.barryzea.memorygame.common.entities.Card
-import com.barryzea.memorygame.common.entities.GameImage
+import com.barryzea.memorygame.common.entities.ImageGame
+import com.barryzea.memorygame.databinding.DialogLayoutBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
@@ -33,7 +37,7 @@ fun createLinearLayout(ctx:Context):LinearLayout{
     lnRow.setPadding(4,4,4,4)
     return lnRow
 }
-fun createCardView(ctx:Context,tag:String, imageEntity:GameImage, onClick:(Card)->Unit):CardView{
+fun createCardView(ctx:Context, tag:String, imageEntity:ImageGame, onClick:(Card)->Unit):CardView{
     val cardView= CardView(ctx)
     val cardParams = LinearLayout.LayoutParams(
         LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT,1.0f)
@@ -72,13 +76,23 @@ fun createImageView(ctx:Context, imageResource:Int):ImageView{
 
     return imageView
 }
-fun Context.showGameDialog(msg:Int){
+fun Context.showGameDialog(msg:Int, imgRes:Int){
+    val bind=DialogLayoutBinding.inflate((this as AppCompatActivity).layoutInflater)
+    bind.tvDialog.text=this.getString(msg)
+    bind.ivDialog.loadImageRes(imgRes)
     MaterialAlertDialogBuilder(this)
-        .setMessage(msg)
+        .setView(bind.root)
         .setPositiveButton(getString(R.string.accept)){d,_->
             d.dismiss()
         }
         .show()
+}
+fun ImageView.loadImageRes(resource:Int){
+    Glide.with(this)
+        .load(resource)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .centerInside()
+        .into(this)
 }
 inline fun <reified T:Activity> Context.gotoActivity(body:Intent.()->Unit){
     startActivity(intentFor<T>(body))
