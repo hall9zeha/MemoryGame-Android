@@ -3,6 +3,7 @@ package com.barryzea.memorygame.common
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
 import android.util.TypedValue
@@ -19,6 +20,7 @@ import com.barryzea.memorygame.databinding.DialogLayoutBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.util.concurrent.TimeUnit
 
 /**
  * Project MemoryGame
@@ -76,16 +78,21 @@ fun createImageView(ctx:Context, imageResource:Int):ImageView{
 
     return imageView
 }
-fun Context.showGameDialog(msg:Int, imgRes:Int){
+fun Context.showGameDialog(msg:Int, imgRes:Int,onRetryClick:()->Unit){
     val bind=DialogLayoutBinding.inflate((this as AppCompatActivity).layoutInflater)
     bind.tvDialog.text=this.getString(msg)
     bind.ivDialog.loadImageRes(imgRes)
     MaterialAlertDialogBuilder(this)
         .setView(bind.root)
-        .setPositiveButton(getString(R.string.accept)){d,_->
+        .setPositiveButton(getString(R.string.retry)){ d, _->
+            onRetryClick()
+            d.dismiss()
+        }
+        .setNegativeButton(getString(R.string.accept)){ d, _->
             d.dismiss()
         }
         .show()
+
 }
 fun ImageView.loadImageRes(resource:Int){
     Glide.with(this)
@@ -103,4 +110,14 @@ fun <T:Any>Activity.textFormatted(value:T,msg:String)=String.format("%s %s",msg,
 
 fun postDelay(delayMillis:Long,block:()->Unit){
     Handler(Looper.getMainLooper()).postDelayed({block()}, delayMillis)
+}
+fun getTimeFormatted(millis:Long):String{
+    val seconds = TimeUnit.MILLISECONDS.toSeconds(millis) % 60
+    val minutes = TimeUnit.MILLISECONDS.toMinutes(millis) % 60
+    return String.format("%02d:%02d",minutes,seconds)
+}
+fun createSound(ctx:Context, soundRes:Int){
+    val mp = MediaPlayer.create(ctx,soundRes)
+    mp.start()
+    mp.setOnCompletionListener {mp.release()}
 }

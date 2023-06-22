@@ -3,11 +3,12 @@
     <string name="app_name">Braid Memory Game</string>
     <string name="pairsMsg">Pairs</string>
     <string name="movementsMsg">Movements</string>
-    <string name="accept">Accept</string>
+    <string name="retry">Retry</string>
     <string name="winnerMsg">!You have won, what a good memory</string>
     <string name="choiceLevel">Choose difficulty</string>
     <string name="retryGameMsg">"!Cheer up, try again"</string>
     <string name="easyLevel">Easy</string>
     <string name="mediumLevel">Medium</string>
     <string name="hardLevel">Hard</string>
+    <string name="accept">Accept</string>
 </resources>
