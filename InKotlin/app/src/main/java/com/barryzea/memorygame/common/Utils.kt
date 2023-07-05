@@ -84,6 +84,7 @@ fun Context.showGameDialog(msg:Int, imgRes:Int,onRetryClick:()->Unit){
     bind.ivDialog.loadImageRes(imgRes)
     MaterialAlertDialogBuilder(this)
         .setView(bind.root)
+        .setCancelable(false)
         .setPositiveButton(getString(R.string.retry)){ d, _->
             onRetryClick()
             d.dismiss()
