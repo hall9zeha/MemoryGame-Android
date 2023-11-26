@@ -5,6 +5,7 @@ import android.animation.AnimatorSet
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -82,14 +83,43 @@ class GameViewModel : ViewModel() {
             _remainingTime.postValue(timeInMillis)
             _maxProgress.postValue((timeInMillis/1000).toInt())
         }
-        countPairsOfImages(listForCuntPairs)//llamamos a la función que contará los pares de imágenes
+        countPairsOfImages(listForCuntPairs)//llamamos a la función que contará los pares de imágenes idénticas
 
     }
     fun retryGame(ctx:Context, rows:Int,columns:Int, minutes:Int){
         timerStart=false
         setUpGameBoard(ctx,rows,columns,minutes)
     }
+    //Esta versión está optimizada por si usamos listas más grandes ya que tiene una complejidad lineal
     private fun countPairsOfImages(imagesList:List<ImageGame>){
+        // Crear un mapa para mantener un recuento de las ocurrencias de cada nombre de imagen.
+        val occurrences = mutableMapOf<String, Int>()
+
+       // Iterar sobre la lista de imágenes para contar las ocurrencias de cada nombre.
+        for (image in imagesList) {
+            // Incrementar el recuento de ocurrencias del nombre de la imagen en el mapa.
+            //occurrences[image.name] = occurrences.getOrDefault(image.name, 0) + 1 //Api level 24 or newest
+            occurrences[image.name] = occurrences[image.name]?.plus(1) ?: 1 //Api level oldest than 24 and newest too
+        }
+        // Inicializar una variable para contar el total de pares de imágenes idénticas.
+        var count = 0
+
+        // Iterar sobre los valores del mapa (ocurrencias de cada nombre).
+        for (occurrence in occurrences.values) {
+            // Sumar la cantidad de pares completos, dividiendo por 2.
+            count += occurrence / 2
+        }
+
+        Log.e("NEW", count.toString() )
+        // Notificar el total de pares a través de LiveData.
+        _remainingPairs.postValue(count)
+    }
+
+    //Esta función tienen una complejidad de nivel cuadrático al tener dos bucles anidados
+    //sería poco eficiente con listas de elementos muy grandes, pero para nuestro propósito
+    //cumple con su cometido ya que son listas pequeñas
+
+   /* private fun countPairsOfImages(imagesList:List<ImageGame>){
         val listOfSearch= mutableListOf<ImageGame>()
         listOfSearch.addAll(imagesList)
         var count=0
@@ -113,9 +143,10 @@ class GameViewModel : ViewModel() {
                 }
             }
         }
-        pairs=count
-        _remainingPairs.postValue(pairs)
-    }
+
+        Log.e("OLD", count.toString() )
+        _remainingPairs.postValue(count)
+    }*/
     private fun initTimer(minutes:Int){
         val timeInMillis=((minutes * 60 * 1000)+1000).toLong()
         timer = object: CountDownTimer(timeInMillis, 1000){
