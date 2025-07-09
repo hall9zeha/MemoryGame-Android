@@ -35,5 +35,5 @@ The application will have a main game screen that contains the following element
 ## Screenshots 🖼️
 |||
 |--|--|
-|<p align="center" width="70%"><img src="https://github.com/hall9zeha/MemoryGame-Android/blob/main/screenshots/MemGame.gif"  alt="drawing" width="70%" height="70%"/></p>|<p align="center" width="70%"><img src="https://github.com/hall9zeha/MemoryGame-Android/blob/main/screenshots/screen1.jpg" alt="drawing" width="70%" height="70%"/></p>|
-|<p align="center" width="70%"><img src="https://github.com/hall9zeha/MemoryGame-Android/blob/main/screenshots/screen2.jpg"  alt="drawing" width="70%" height="70%"/></p>|<p align="center" width="70%"><img src="https://github.com/hall9zeha/MemoryGame-Android/blob/main/screenshots/screen3.jpg"  alt="drawing" width="70%" height="70%"/></p>|
+|<p align="center" width="70%"><img src="https://github.com/hall9zeha/MemoryGame-Android/blob/main/screenshots/MemGame.gif"  alt="drawing" width="70%"/></p>|<p align="center" width="70%"><img src="https://github.com/hall9zeha/MemoryGame-Android/blob/main/screenshots/screen1.jpg" alt="drawing" width="70%"/></p>|
+|<p align="center" width="70%"><img src="https://github.com/hall9zeha/MemoryGame-Android/blob/main/screenshots/screen2.jpg"  alt="drawing" width="70%"/></p>|<p align="center" width="70%"><img src="https://github.com/hall9zeha/MemoryGame-Android/blob/main/screenshots/screen3.jpg"  alt="drawing" width="70%"/></p>|
