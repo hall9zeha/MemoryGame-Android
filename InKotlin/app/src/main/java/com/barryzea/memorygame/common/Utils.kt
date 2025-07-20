@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.barryzea.memorygame.R
 import com.barryzea.memorygame.common.entities.Card
 import com.barryzea.memorygame.common.entities.ImageGame
@@ -61,6 +62,7 @@ fun createCardView(ctx:Context, tag:String, imageEntity:ImageGame, onClick:(Card
     cardView.tag=tag
     cardView.isClickable=true
     cardView.isFocusable=true
+
     cardView.setOnClickListener {
         onClick(Card(coordinates = getCoordinates(cardView.tag.toString()),
         description = cardView.contentDescription.toString())) }
