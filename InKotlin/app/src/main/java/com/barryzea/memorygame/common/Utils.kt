@@ -48,7 +48,6 @@ fun createCardView(ctx:Context, tag:String, imageEntity:ImageGame, onClick:(Card
     imageViewFront.id="0".toInt()
     val imageViewBack = createImageView(ctx,imageEntity.imageRes)
     imageViewBack.id="1".toInt()
-    imageViewBack.scaleType = ImageView.ScaleType.FIT_XY
     // Mostramos las imágenes al inicio para que el usuario intente memorizarlas
     // estas se ocultarán después de unos segundos (en la función setUpGameBoard() del viewModel)
     imageViewFront.visibility=View.GONE
