@@ -44,10 +44,15 @@ fun createCardView(ctx:Context, tag:String, imageEntity:ImageGame, onClick:(Card
     val cardParams = LinearLayout.LayoutParams(
         LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT,1.0f)
     val imageViewFront= createImageView(ctx,R.drawable.aleph)
+    imageViewFront.scaleType = ImageView.ScaleType.FIT_XY
     imageViewFront.id="0".toInt()
     val imageViewBack = createImageView(ctx,imageEntity.imageRes)
-    imageViewBack.visibility=View.GONE
     imageViewBack.id="1".toInt()
+    imageViewBack.scaleType = ImageView.ScaleType.FIT_XY
+    // Mostramos las imágenes al inicio para que el usuario intente memorizarlas
+    // estas se ocultarán después de unos segundos (en la función setUpGameBoard() del viewModel)
+    imageViewFront.visibility=View.GONE
+    imageViewBack.visibility=View.VISIBLE
 
     cardParams.setMargins(8,8,8,8)
     cardView.layoutParams=cardParams

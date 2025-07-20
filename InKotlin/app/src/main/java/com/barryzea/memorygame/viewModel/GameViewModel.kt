@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.barryzea.memorygame.R
 import com.barryzea.memorygame.common.DummyDataSource
 import com.barryzea.memorygame.common.SingleMutableLiveData
@@ -23,6 +24,8 @@ import com.barryzea.memorygame.common.entities.Card
 import com.barryzea.memorygame.common.entities.ImageGame
 import com.barryzea.memorygame.common.getCoordinates
 import com.barryzea.memorygame.common.postDelay
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * Project MemoryGame
@@ -75,7 +78,7 @@ class GameViewModel : ViewModel() {
                 val cardView= createCardView(ctx,coordinatesTag,imageRandom){ onCardClick(it,minutes)}
                 lnRow.addView(cardView)
                 arrayCards[x][y]= Card(card=cardView,coordinates = getCoordinates(coordinatesTag),
-                    description = cardView.contentDescription.toString())
+                    description = imageRandom.name)
             }
             _viewCreated.value=lnRow
             //cargamos la primera vez el tiempo a mostrar en el textView de temporizador y el 100% de progreso del progressbar
@@ -84,7 +87,10 @@ class GameViewModel : ViewModel() {
             _maxProgress.postValue((timeInMillis/1000).toInt())
         }
         countPairsOfImages(listForCuntPairs)//llamamos a la función que contará los pares de imágenes idénticas
-
+        viewModelScope.launch {
+            delay(1500)
+            hideCardsToStartPlaying()
+        }
     }
     fun retryGame(ctx:Context, rows:Int,columns:Int, minutes:Int){
         timerStart=false
@@ -113,6 +119,7 @@ class GameViewModel : ViewModel() {
         Log.e("NEW", count.toString() )
         // Notificar el total de pares a través de LiveData.
         _remainingPairs.postValue(count)
+        pairs = count
     }
 
     //Esta función tienen una complejidad de nivel cuadrático al tener dos bucles anidados
@@ -183,20 +190,20 @@ class GameViewModel : ViewModel() {
     private fun checkMovementsPair(){
         if(listOfMovements.size >1) {//si ya tenemos un par en la lista procedemos a comparar
             countMovements++
-            _movements.postValue(countMovements)
+            _movements.value=countMovements
             postDelay(100){
                 val x = listOfMovements[0].coordinates.first
                 val y = listOfMovements[0].coordinates.second
                 val x1 = listOfMovements[1].coordinates.first
                 val y1 = listOfMovements[1].coordinates.second
-                if (arrayCards[x][y].description == arrayCards[x1][y1].description) {
+                if (arrayCards[x][y].description === arrayCards[x1][y1].description) {
                     createSound(context,R.raw.monstar_gets_key)
                     //si hay un par encontrado bloqueamos las vistas para evitar nuevos eventos en ellas
                     getCardView(x, y).isEnabled = false
                     getCardView(x1, y1).isEnabled = false
                     //actualizamos los pares restantes
                     pairs--
-                    _remainingPairs.postValue(pairs)
+                    _remainingPairs.value=pairs
 
                 } else {
                     var count=1L
@@ -221,6 +228,20 @@ class GameViewModel : ViewModel() {
 
         }
     }
+    private fun hideCardsToStartPlaying(){
+        for(i in 0 until arrayCards.size){
+            for(j in 0 until arrayCards[i].size){
+                val card = arrayCards[i][j]
+                val (x, y) = card.coordinates
+                val imgFront = getCardView(x, y).findViewById<ImageView>("0".toInt())
+                imgFront.visibility= View.VISIBLE
+                val imgBack = getCardView(x, y).findViewById<ImageView>("1".toInt())
+                imgBack.visibility=View.GONE
+
+            }
+        }
+    }
+
     private fun stopTimer(){timer?.cancel()}
     private fun setUpAnimators(ctx:Context){
         frontAnimator = AnimatorInflater.loadAnimator(ctx, R.animator.front_animator) as AnimatorSet
